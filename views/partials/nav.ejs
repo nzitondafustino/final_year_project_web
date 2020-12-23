@@ -1,0 +1,14 @@
+<nav  class=" teal">
+    <div class="nav-wrapper">
+      <a data-target="mobile-demo" class="sidenav-trigger show-on-large"><i class="material-icons">menu</i></a>
+      <ul id="nav-mobile" class="right">
+        <li>
+            <li>
+              <form action="/admin/logout" method="post">
+                <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                <button type="submit" class="waves-effect waves-teal btn-flat white-text">Logout</button>
+              </form>
+            </li>
+      </ul>
+    </div>
+  </nav>

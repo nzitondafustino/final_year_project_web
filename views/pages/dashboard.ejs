@@ -1,0 +1,117 @@
+<%- include ('../partials/header')%>
+<%- include ('../partials/nav')%>
+<div class="container">
+<div class="row">
+    <div class="col m3">
+        <%- include ('../partials/sideNav')%>
+    </div>
+    <div class="col m12">
+        <table>
+            <thead>
+              <tr>
+                  <th class="hide-on-med-and-down">S/N</th>
+                  <th class="hide-on-med-and-down">Analog Value</th>
+                  <th class="hide-on-med-and-down">Humidity</th>
+                  <th class="hide-on-med-and-down">Location</th>
+                  <th>#</th>
+              </tr>
+            </thead>
+        
+            <tbody>
+              <% devices.forEach(function(device){ %>
+                <tr>
+                  <td class="hide-on-med-and-down serial"><%= device.SN %></td>
+                  <td class="hide-on-med-and-down"><%= device.analogValue %></td>
+                  <td class="hide-on-med-and-down"><%= device.humidity%></td>
+                  <td class="hide-on-med-and-down"><%= device.location %></td>
+                  <td><a class="btn-floating btn waves-effect waves-light teal view modal-trigger btn-small" data-target="modal1" onclick="view(event)"><i class="material-icons">visibility</i></a>
+                      <a class="btn-floating btn waves-effect waves-light blue update modal-trigger btn-small" data-target="modal2" onclick="update(event)"><i class="material-icons">edit</i></a>
+                     <a class="btn-floating btn waves-effect waves-light red delete modal-trigger btn-small" data-target="modal3" onclick="deleteDevice(event)"><i class="material-icons">delete</i></a></td>
+                </tr>
+              <% }) %>
+            </tbody>
+          </table>
+                   <!-- view modal -->
+                    <!-- Modal Structure -->
+                    <div id="modal1" class="modal">
+                      <div class="modal-content">
+                        <h4>Lamp Details</h4>
+                        <div id="lampDettails">
+                          <p id="SN"></p>
+                          <p id='analogValue'>analog Value: </p>
+                          <p id="humidity">humidity: </p>
+                          <p id="location">Location:</p>
+                        </div>
+                      </div>
+                      <div class="modal-footer">
+                        <a href="#!" class="modal-close waves-effect red waves-green btn-flat">Close</a>
+                      </div>
+                    </div>
+                    <!-- update Modal -->
+                    <div id="modal2" class="modal">
+                      <div class="modal-content">
+                        <h4>Update Details</h4>
+                        <form class="col s12 center-align" method="post" id="updateForm" action="/admin/update-device">
+                          <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                          <div class="row">
+                            <div class="input-field col s6">
+                              <input  id="SNu" placeholder="S/N" name="SN" type="text" class="validate">
+                            </div>
+                          </div>
+                         <div class="row">
+                           <div class="input-field col s12">
+                             <input id="locationu" placeholder="Location" name="location" type="text" class="validate">
+                           </div>
+                         </div>
+                          <div class="row right-align">
+                           <button type="button" class="btn waves-effect waves-light red modal-close">Cancel</button>
+                           <button type="submit" class="btn waves-effect waves-light teal modal-close">Update</button>
+                          </div>
+                        </form>
+                      </div>
+                    </div>
+                    <!-- Delete popup -->
+                    <div id="modal3" class="modal">
+                      <div class="modal-content">
+                        <h4>Are you sure you want to delete this Lamp?</h4>
+                      </div>
+                      <div class="modal-footer">
+                        <form action="/admin/delete-device" method="post" id="deleteForm">
+                          <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                          <button type="button" class="modal-close waves-effect teal waves-green btn-flat ">Cancel</button>
+                          <button type="submit" class="modal-close waves-effect red waves-green btn-flat">Yes</button>
+                        </form>
+                      </div>
+                    </div>
+
+
+    </div>
+</div>
+
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.dev.js"></script>
+<script>
+  var devices = <%- JSON.stringify(devices) %>;
+  var socket = io.connect('http://localhost');
+        socket.on('data', function(data) {
+            var serials = document.getElementsByClassName('serial')
+            var udpated = false;
+            var i;
+            for(i =0; i < serials.length;i++){
+              var serial = serials[i].innerHTML;
+              if(serial.trim() == data.serialNumber ) {
+                console.log(data.serialNumber)
+                var tr = serials[i].parentNode.childNodes
+                tr[1].innerHTML = data.serialNumber;
+                tr[3].innerHTML = data.analogValue;
+                tr[5].innerHTML = data.humidity;
+                var row = serials[i].parentNode;
+                row.className = "green accent-3";
+                setTimeout(() => {
+                row.className = "";
+                }, 1000);
+              }
+            }
+        })
+</script>
+<%- include('../partials/footer') %>

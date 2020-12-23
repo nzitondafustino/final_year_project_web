@@ -1,0 +1,22 @@
+<ul id="mobile-demo" class="sidenav lime lighten-5">
+  <li><div class="user-view">
+    <div class="background">
+      <img src="https://images.pexels.com/photos/1546898/pexels-photo-1546898.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500">
+    </div>
+    <a href="#user"><img class="circle" src="https://banner2.cleanpng.com/20180408/tvw/kisspng-user-computer-icons-gravatar-blog-happy-woman-5aca6d03e6c3f5.6041125615232156199452.jpg"></a>
+    <a href="#name"><span class="white-text name"><%= user.first_name%> <%= user.last_name%></span></a>
+    <a href="#email"><span class="white-text email"><%= user.email%></span></a>
+  </div></li>
+    <li><a href="/admin/dashboard"><i class="material-icons">list</i>All Devices</a></li>
+    <li><a href="/admin/add-device">
+      <i class="material-icons">add</i>Add new Device</a>
+    </li>
+    <%  if(user) { if(user.role == 1) { %>
+    <li><a href="/admin/add-user">
+      <i class="material-icons">person</i> Add User</a>
+    </li>
+    <li><a href="/admin/all-users">
+      <i class="material-icons">group</i> All Users</a>
+    </li>
+    <% } } %>
+  </ul>
