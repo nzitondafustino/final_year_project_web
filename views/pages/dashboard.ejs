@@ -94,6 +94,7 @@
   var devices = <%- JSON.stringify(devices) %>;
   var socket = io.connect('https://soilmoisturedatalogger.herokuapp.com/');
         socket.on('data', function(data) {
+            console.og(data);
             var serials = document.getElementsByClassName('serial')
             var udpated = false;
             var i;
