@@ -95,15 +95,11 @@
   var socket = io.connect('https://soilmoisturedatalogger.herokuapp.com/');
         socket.on('data', function(data) {
             var serials = document.getElementsByClassName('serial')
-            console.log(serials);
             var udpated = false;
             var i;
             for(i =0; i < serials.length;i++){
               var serial = serials[i].innerHTML;
-              console.log(serial);
               if(serial.trim() == data.serialNumber ) {
-                console.log(serial);
-                console.log(data.serialNumber)
                 var tr = serials[i].parentNode.childNodes
                 tr[1].innerHTML = data.serialNumber;
                 tr[3].innerHTML = data.analogValue;
