@@ -21,7 +21,7 @@
               <% devices.forEach(function(device){ %>
                 <tr>
                   <td><%= device.SN %></td>
-                  <td></td><%= device.analogValue %></td>
+                  <td><%= device.analogValue %></td>
                   <td><%= device.humidity%></td>
                   <td><%= device.location %></td>
                   <td><a class="btn-floating btn waves-effect waves-light teal view modal-trigger btn-small" data-target="modal1" onclick="view(event)"><i class="material-icons">visibility</i></a>
