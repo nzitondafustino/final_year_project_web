@@ -9,10 +9,10 @@
         <table>
             <thead>
               <tr>
-                  <th class="hide-on-med-and-down">S/N</th>
-                  <th class="hide-on-med-and-down">Analog Value</th>
-                  <th class="hide-on-med-and-down">Humidity</th>
-                  <th class="hide-on-med-and-down">Location</th>
+                  <th">S/N</th>
+                  <th>Analog Value</th>
+                  <th>Humidity</th>
+                  <th>Location</th>
                   <th>#</th>
               </tr>
             </thead>
@@ -20,10 +20,10 @@
             <tbody>
               <% devices.forEach(function(device){ %>
                 <tr>
-                  <td class="hide-on-med-and-down serial"><%= device.SN %></td>
-                  <td class="hide-on-med-and-down"><%= device.analogValue %></td>
-                  <td class="hide-on-med-and-down"><%= device.humidity%></td>
-                  <td class="hide-on-med-and-down"><%= device.location %></td>
+                  <td><%= device.SN %></td>
+                  <td></td><%= device.analogValue %></td>
+                  <td><%= device.humidity%></td>
+                  <td><%= device.location %></td>
                   <td><a class="btn-floating btn waves-effect waves-light teal view modal-trigger btn-small" data-target="modal1" onclick="view(event)"><i class="material-icons">visibility</i></a>
                       <a class="btn-floating btn waves-effect waves-light blue update modal-trigger btn-small" data-target="modal2" onclick="update(event)"><i class="material-icons">edit</i></a>
                      <a class="btn-floating btn waves-effect waves-light red delete modal-trigger btn-small" data-target="modal3" onclick="deleteDevice(event)"><i class="material-icons">delete</i></a></td>
