@@ -95,6 +95,7 @@
   var socket = io.connect('https://soilmoisturedatalogger.herokuapp.com/');
         socket.on('data', function(data) {
             var serials = document.getElementsByClassName('serial')
+            console.log(serials);
             var udpated = false;
             var i;
             for(i =0; i < serials.length;i++){
