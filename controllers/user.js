@@ -13,7 +13,6 @@ exports.getAddUser = function(req,res,next){
 exports.allUser = async function(req,res,next){
     const users = await User.find();
     if(req.session.user){
-        console.log(req.session.user)
     }
     res.render('pages/all-users',{title:"All Users",users:users});
 }
@@ -21,13 +20,11 @@ exports.postAddUser = async function(req,res,next){
     //validating incoming data
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
-        console.log(errors);
         return res.render('pages/add-user',{title:"New User",errors:errors});
       }
     //populating user with incomimg requwest user
     try {
        const hash = await bcrypt.hash(req.body.password,10);
-        console.log(req.body)
         const user = new User({
             first_name : req.body.first_name,
             last_name : req.body.last_name,
@@ -38,7 +35,7 @@ exports.postAddUser = async function(req,res,next){
         //saving user int a database
         await user.save();
     } catch(e){
-        console.log(e.message);
+        //console.log(e.message);
     }
     //redirecting to all user after saving
     res.redirect('/admin/all-users');
