@@ -6,6 +6,13 @@
                 <p class="hide-on-small-only">Access your Farm wherever you are.</p>
             </div>
         </div>
+        <% if(error) {%>
+        <div class="row">
+          <div class="col s12 m8 offset-m2 l6 offset-l3 red darken-1">
+              <p class="center-align"><%= error %></p>
+          </div>
+        </div>
+        <% } %>
        <div class="row">
         <div class="col s12 m8 offset-m2 l6 offset-l3">
             <div class="card">

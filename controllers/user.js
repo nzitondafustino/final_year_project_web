@@ -71,24 +71,16 @@ exports.deleteUser = async function(req,res,next){
     res.redirect('/admin/all-users');
 }
 exports.userLogin = async function(req,res,next){
-    console.log("I am here");
     const email = req.body.email;
     const password = req.body.password;
     const user = await User.findOne({email:email});
-    console.log(user)
     if(!user){
-        errors.errors.push({
-            msg:"invalid email or password"
-        })
-        return res.render("pages/dashboard",{errors:errors});
+        return res.redirect('/?error=Invalid email or password');
     }
     const result = await bcrypt.compare(password,user.password);
 
     if(!result){
-        errors.errors.push({
-            msg:"invalid email or password"
-        })
-        return res.render("pages/dashboard",{errors:errors});
+        return res.redirect('/?error=Invalid email or password');
     }
     req.session.user = {
         first_name : user.first_name,
