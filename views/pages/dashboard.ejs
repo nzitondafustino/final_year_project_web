@@ -10,8 +10,9 @@
             <thead>
               <tr>
                   <th>S/N</th>
-                  <th>Analog Value</th>
-                  <th>Humidity</th>
+                  <th>VWC(m<sup>3</sup>/m<sup>3</sup>)</th>
+                  <th>Temperature(<sup>o</sup>C)</th>
+                  <th>EC(uS/cm)</th>
                   <th>Location</th>
                   <th>#</th>
               </tr>
@@ -21,8 +22,9 @@
               <% devices.forEach(function(device){ %>
                 <tr>
                   <td  class="serial"><%= device.SN %></td>
-                  <td><%= device.analogValue %></td>
-                  <td><%= device.humidity%></td>
+                  <td><%= device.VWC %></td>
+                  <td><%= device.temperature%></td>
+                  <td><%= device.EC%></td>
                   <td><%= device.location %></td>
                   <td><a class="btn-floating btn waves-effect waves-light teal view modal-trigger btn-small" data-target="modal1" onclick="view(event)"><i class="material-icons">visibility</i></a>
                       <a class="btn-floating btn waves-effect waves-light blue update modal-trigger btn-small" data-target="modal2" onclick="update(event)"><i class="material-icons">edit</i></a>
@@ -38,8 +40,9 @@
                         <h4>Device Details</h4>
                         <div id="lampDettails">
                           <p id="SN"></p>
-                          <p id='analogValue'>analog Value: </p>
-                          <p id="humidity">humidity: </p>
+                          <p id='VWC'>VWC: </p>
+                          <p id="temperature">Temperature(<sup>o</sup>C): </p>
+                          <p id="EC">Electrical conductivity(US/cm): </p>
                           <p id="location">Location:</p>
                         </div>
                       </div>
@@ -92,7 +95,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.dev.js"></script>
 <script>
   var devices = <%- JSON.stringify(devices) %>;
-  var socket = io.connect('https://soilmoisturedatalogger.herokuapp.com/');
+  var socket = io.connect('http://localhost/');
         socket.on('data', function(data) {
             var serials = document.getElementsByClassName('serial')
             var udpated = false;
@@ -102,8 +105,9 @@
               if(serial.trim() == data.serialNumber ) {
                 var tr = serials[i].parentNode.childNodes
                 tr[1].innerHTML = data.serialNumber;
-                tr[3].innerHTML = data.analogValue;
-                tr[5].innerHTML = data.humidity;
+                tr[3].innerHTML = data.VWC;
+                tr[5].innerHTML = data.temperature;
+                tr[7].innerHTML = data.EC;
                 var row = serials[i].parentNode;
                 row.className = "green accent-3";
                 setTimeout(() => {

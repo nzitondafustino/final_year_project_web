@@ -6,8 +6,9 @@ exports.updateMcData = async function(req,res,next){
 
   const values = req.query.data.split('*')
   const serialNumber = values[0]
-  const analogValue = values[1];
-  const humidity = values[2];
+  const VWC = values[1];
+  const temperature = values[2];
+  const EC = values[3];
   //verifying serial number of the lamp
   const device = await Device.findOne({SN:serialNumber});
   if(!device){
@@ -15,8 +16,9 @@ exports.updateMcData = async function(req,res,next){
   }
   const data = new Data({
     serialNumber:serialNumber,
-    analogValue:analogValue,
-    humidity:humidity,
+    temperature:temperature,
+    VWC:VWC,
+    EC:EC,
     device:device._id
   });
 

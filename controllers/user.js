@@ -80,13 +80,18 @@ exports.userLogin = async function(req,res,next){
     const user = await User.findOne({email:email});
     console.log(user)
     if(!user){
-        return res.redirect('/');
+        errors.errors.push({
+            msg:"invalid email or password"
+        })
+        return res.render("pages/dashboard",{errors:errors});
     }
     const result = await bcrypt.compare(password,user.password);
 
     if(!result){
-        console.log("No result found")
-        return res.redirect('/');
+        errors.errors.push({
+            msg:"invalid email or password"
+        })
+        return res.render("pages/dashboard",{errors:errors});
     }
     req.session.user = {
         first_name : user.first_name,
@@ -94,7 +99,6 @@ exports.userLogin = async function(req,res,next){
         email :user.email,
         role:user.role
     }
-    console.log(user);
     res.redirect('/admin/dashboard');
 }
 exports.userLogout = (req,res,next)=>{

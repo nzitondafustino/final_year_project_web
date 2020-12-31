@@ -16,8 +16,9 @@ function view(event){
      return device.SN.trim() == serialNumber.trim();
  })
         $('#SN').html('Serial Number: ' + sensor[0].SN);
-        $('#analogValue').html('Analog Value: ' + sensor[0].analogValue + "");
-        $('#humidity').html('Humidity: ' + sensor[0].humidity + "%");
+        $('#VWC').html('VWC: ' + sensor[0].VWC + "(m<sup>3</sup>/m<sup>3</sup>)");
+        $('#tempetature').html('temperature: ' + sensor[0].temperature + "<sup>o</sup>C");
+        $('#EC').html('Elctrical conductivity: ' + sensor[0].EC + "uS/cm");
         $('#location').html('Loacation: ' + sensor[0].location);
 }
 function deleteDevice(event){

@@ -6,8 +6,9 @@ const schema = mongoose.Schema;
 
 const dataSchema = new schema({
     serialNumber:String,
-    analogValue:String,
-    humidity:String,
+    EC:String,
+    VWC:String,
+    temperature:String,
     created:{
         type:Date,
         default:new Date()
