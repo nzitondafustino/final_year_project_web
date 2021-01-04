@@ -21,7 +21,8 @@ exports.updateMcData = async function(req,res,next){
     temperature:temperature,
     VWC:VWC,
     EC:EC,
-    device:device._id
+    device:device._id,
+    created:new Date().toISOString()
   });
 
   await data.save()
