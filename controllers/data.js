@@ -53,7 +53,7 @@ exports.getExportData = async function(req,res,next){
     EC:d.EC,
     temperature:d.temperature,
     VWC:d.VWC,
-    created:new Date(d.created).toISOString()
+    Date:new Date(d.created).toISOString()
     };
     csvData.push(columnData);
   });
